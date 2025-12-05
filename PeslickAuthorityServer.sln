@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeslickAuthorityServer", "PeslickAuthorityServer.csproj", "{FD98F82A-3B0E-48CD-B01B-EBF56FC6C665}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuotesApi", "..\QuotesApi\QuotesApi.csproj", "{70074DBD-3A3C-4D1A-ADB0-215917F5152F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD98F82A-3B0E-48CD-B01B-EBF56FC6C665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD98F82A-3B0E-48CD-B01B-EBF56FC6C665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD98F82A-3B0E-48CD-B01B-EBF56FC6C665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD98F82A-3B0E-48CD-B01B-EBF56FC6C665}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70074DBD-3A3C-4D1A-ADB0-215917F5152F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70074DBD-3A3C-4D1A-ADB0-215917F5152F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70074DBD-3A3C-4D1A-ADB0-215917F5152F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70074DBD-3A3C-4D1A-ADB0-215917F5152F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ADEA22D2-7082-4117-820B-4DDCF580ADF7}
+	EndGlobalSection
+EndGlobal
