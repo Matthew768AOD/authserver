@@ -5,27 +5,28 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 public class ApiClient
 {
-    private readonly HttpClient _http = new();
-    private readonly string _authBase;
-    private readonly string _apiBase;
+    private readonly HttpClient _authHttp;
+    private readonly HttpClient _apiHttp;
 
     public ApiClient(string authBase, string apiBase)
     {
-        _authBase = authBase;
-        _apiBase = apiBase;
+        _authHttp = new HttpClient { BaseAddress = new Uri(authBase) };
+        _apiHttp = new HttpClient { BaseAddress = new Uri(apiBase) };
     }
 
     private void EnsureAuthHeader()
     {
         var token = Session.Instance.JwtToken;
-        _http.DefaultRequestHeaders.Authorization = null;
+
+        _apiHttp.DefaultRequestHeaders.Authorization = null;
 
         if (!string.IsNullOrEmpty(token))
         {
-            _http.DefaultRequestHeaders.Authorization =
+            _apiHttp.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", token);
         }
     }
@@ -34,22 +35,27 @@ public class ApiClient
     {
         var req = new { username, password };
 
-        var resp = await _http.PostAsync(
-            $"{_authBase}/api/Auth/login",
-            new StringContent(JsonConvert.SerializeObject(req), Encoding.UTF8, "application/json")
+        var resp = await _authHttp.PostAsync(
+            "/api/Auth/login",
+            new StringContent(
+                JsonConvert.SerializeObject(req),
+                Encoding.UTF8,
+                "application/json")
         );
-
-        if (!resp.IsSuccessStatusCode)
-            return false;
 
         var json = await resp.Content.ReadAsStringAsync();
         var loginResp = JsonConvert.DeserializeObject<LoginResponse?>(json);
 
-        if (loginResp?.Token != null)
+        if (!resp.IsSuccessStatusCode)
+            return false;
+        if (loginResp?.Value != null)
         {
-            Session.Instance.SetToken(loginResp.Token);
+            Session.Instance.SetToken(loginResp.Value);
             return true;
         }
+
+        var responseText = await resp.Content.ReadAsStringAsync();
+        MessageBox.Show(responseText);
 
         return false;
     }
@@ -57,7 +63,7 @@ public class ApiClient
     public async Task<List<Quote>> GetQuotesAsync()
     {
         EnsureAuthHeader();
-        var resp = await _http.GetAsync($"{_apiBase}/api/Quotes");
+        var resp = await _apiHttp.GetAsync("/api/Quotes");
         resp.EnsureSuccessStatusCode();
 
         var json = await resp.Content.ReadAsStringAsync();
@@ -69,7 +75,7 @@ public class ApiClient
     {
         EnsureAuthHeader();
         var content = new StringContent(JsonConvert.SerializeObject(q), Encoding.UTF8, "application/json");
-        var resp = await _http.PostAsync($"{_apiBase}/api/Quotes", content);
+        var resp = await _apiHttp.PostAsync($"/api/Quotes", content);
 
         if (!resp.IsSuccessStatusCode)
             return null;
@@ -82,14 +88,14 @@ public class ApiClient
     {
         EnsureAuthHeader();
         var content = new StringContent(JsonConvert.SerializeObject(q), Encoding.UTF8, "application/json");
-        var resp = await _http.PutAsync($"{_apiBase}/api/Quotes/{id}", content);
+        var resp = await _apiHttp.PutAsync($"/api/Quotes/{id}", content);
         return resp.IsSuccessStatusCode;
     }
 
     public async Task<bool> DeleteQuoteAsync(int id)
     {
         EnsureAuthHeader();
-        var resp = await _http.DeleteAsync($"{_apiBase}/api/Quotes/{id}");
+        var resp = await _apiHttp.DeleteAsync($"/api/Quotes/{id}");
         return resp.IsSuccessStatusCode;
     }
 }
