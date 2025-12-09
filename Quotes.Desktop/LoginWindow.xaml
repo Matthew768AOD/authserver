@@ -1,0 +1,23 @@
+﻿<Window x:Class="Quotes.Desktop.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Login" Height="250" Width="400">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Username" Grid.Row="0"/>
+        <TextBox Name="UsernameBox" Grid.Row="1" Margin="0,4,0,8" />
+
+        <TextBlock Text="Password" Grid.Row="2"/>
+        <PasswordBox Name="PasswordBox" Grid.Row="3" Margin="0,4,0,8"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="4">
+            <Button Name="LoginButton" Content="Login" Width="100" Click="LoginButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

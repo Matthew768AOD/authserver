@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": [ "DOM", "DOM.Iterable", "ES2022" ],
+    "jsx": "react-jsx",
+    "moduleResolution": "nodenext",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "moduleDetection": "force"
+  },
+  "include": [ "src" ],
+  "exclude": [ "node_modules" ]
+}
